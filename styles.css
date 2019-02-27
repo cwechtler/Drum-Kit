@@ -10,6 +10,11 @@ body{
   text-shadow: 4px 0 #af3350;
 }
 
+.pressed{
+  box-shadow: 0 3px 4px 0 black;
+  opacity: 0.5;
+}
+
 .drum-set{
 margin: 10% auto;
 }
