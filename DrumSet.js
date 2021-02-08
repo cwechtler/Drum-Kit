@@ -1,25 +1,23 @@
-
 var buttons = document.querySelectorAll(".drum");
 
 for (var i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", handleClick);
+  buttons[i].addEventListener("click", handleClick());
 }
 
-document.addEventListener("keydown", function(event){
-  handleAudio(event.key.toUpperCase());
-  buttonAnimation(event.key);
+document.addEventListener("keydown", function (event) {
+  var eventUpperCase = event.key.toLocaleUpperCase();
+  playAudio(eventUpperCase);
+  playAnimation(eventUpperCase);
 });
 
-function handleClick(){
-  handleAudio(this.textContent);
-  buttonAnimation(this.textContent.toLowerCase());
+function handleClick() {
+  playAudio(this.innerHTML);
+  playAnimation(this.innerHTML);
 }
 
-function handleAudio(event) {
-  var buttonText = event;
+function playAudio(key) {
   var audio;
-
-  switch (buttonText) {
+  switch (key) {
     case "W":
       audio = new Audio("sounds/tom-1.mp3");
       audio.play();
@@ -41,24 +39,26 @@ function handleAudio(event) {
       audio.play();
       break;
     case "K":
-      audio = new Audio("sounds/kick-bass.mp3");
-      audio.play();
-      break;
-    case "L":
       audio = new Audio("sounds/crash.mp3");
       audio.play();
       break;
+    case "L":
+      audio = new Audio("sounds/kick-bass.mp3");
+      audio.play();
+      break;
     default:
-      console.log(buttonText);
+      console.log("Incorect button pressed");
       break;
   }
 }
 
-function buttonAnimation(key){
+function playAnimation(key) {
   var selectedKey = document.querySelector("." + key);
   if(selectedKey === null){
     return;
   }
   selectedKey.classList.add("pressed");
-  setTimeout(function(){selectedKey.classList.remove("pressed");}, 100);
+
+  setTimeout(function(){
+      selectedKey.classList.remove("pressed");}, 100);
 }
